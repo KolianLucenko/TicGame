@@ -38,7 +38,8 @@ namespace MyCoolGame
         {
             InitializeComponent();
 
-            PrepareNewGame();          
+            PrepareNewGame();
+            
         }
 
         // Нажатие на полотно
@@ -135,6 +136,19 @@ namespace MyCoolGame
             Game.FillMap(out GameMap);
             // Очистить полотно
             CanvasGame.Children.Clear();
+            CanvasGame.IsEnabled = false;
+        }
+
+        /// <summary>
+        /// Кнопка старта игры
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void StartGame(object sender, RoutedEventArgs e)
+        {
+            CanvasGame.IsEnabled = true;
+
+            Game.AddImage(Game.ComputerRun(ref GameMap), UserImage, PlayerType.Computer, CanvasGame);
         }  
     }
 }

@@ -9,11 +9,11 @@
                 <MenuItem Header="Новая игра" Click="NewGame"></MenuItem>
             </MenuItem>
         </Menu>
-        <Canvas x:Name="CanvasGame" HorizontalAlignment="Left" Height="320" VerticalAlignment="Top" Width="320" MouseLeftButtonDown="Click">
+        <Canvas x:Name="CanvasGame" HorizontalAlignment="Left" Height="320" VerticalAlignment="Top" Width="320" MouseLeftButtonDown="Click" IsEnabled="False">
             <Canvas.Background>
                 <ImageBrush ImageSource="{DynamicResource ImageSource1}"/>
             </Canvas.Background>
         </Canvas>
-        <Button Content="Начать игру" HorizontalAlignment="Left" Margin="124,20,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Начать игру" HorizontalAlignment="Left" Margin="124,20,0,0" VerticalAlignment="Top" Width="75" Click="StartGame"/>
     </StackPanel>
 </Window>
