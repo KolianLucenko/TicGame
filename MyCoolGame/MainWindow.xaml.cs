@@ -30,6 +30,8 @@ namespace MyCoolGame
         int[,] GameMap;
         // Индекстатор для проверок
         int[] InArr;
+        // Ожидать ход компьютера
+        bool Wait = false;
 
 
         public MainWindow()
@@ -42,49 +44,53 @@ namespace MyCoolGame
         // Нажатие на полотно
         private async void Click(object sender, MouseButtonEventArgs e)
         {
-            Point pt = e.GetPosition(this.CanvasGame);
-            // Получить правильные координаты и индексатор для проверки
-            Point newP = Game.GetPoint(pt, out InArr);
-
-            // Если ячека пустая
-            if (GameMap[InArr[0], InArr[1]] == 0)
+            if (!Wait)
             {
-                // Отметить ячейку
-                GameMap[InArr[0], InArr[1]] = 1;
+                Wait = true;
+                Point pt = e.GetPosition(this.CanvasGame);
+                // Получить правильные координаты и индексатор для проверки
+                Point newP = Game.GetPoint(pt, out InArr);
 
-                // Загрузить картинку
-                Game.AddImage(newP, UserImage, PlayerType.User,CanvasGame);
-                WinType wt = Game.CheckWin(GameMap, 1);
-                if (wt!=WinType.NULL)
+                // Если ячека пустая
+                if (GameMap[InArr[0], InArr[1]] == 0)
                 {
-                    Game.GetImage(CanvasGame, wt);
+
+                    // Отметить ячейку
+                    GameMap[InArr[0], InArr[1]] = 1;
+
+                    // Загрузить картинку
+                    Game.AddImage(newP, UserImage, PlayerType.User, CanvasGame);
+                    WinType wt = Game.CheckWin(GameMap, 1);
+                    if (wt != WinType.NULL)
+                    {
+                        Game.GetImage(CanvasGame, wt);
+                        await EaseComputer();
+                        MessageBox.Show("Вы выиграли");
+                        // Очистить переменные и подготовить новую игру
+                        ClearVariable();
+                        PrepareNewGame();
+                        return;
+                    }
+
+
+                    // ---------------- ХОД КОМПЬЮТЕРА -----------------------//
                     await EaseComputer();
-                    MessageBox.Show("Вы выиграли");
-                    // Очистить переменные и подготовить новую игру
-                    ClearVariable();
-                    PrepareNewGame();
-                    return;
+                    //Получить координаты
+                    // Загрузить картинку
+                    Game.AddImage(Game.ComputerRun(ref GameMap), UserImage, PlayerType.Computer, CanvasGame);
+                    wt = Game.CheckWin(GameMap, -1);
+                    if (wt != WinType.NULL)
+                    {
+                        Game.GetImage(CanvasGame, wt);
+                        await EaseComputer();
+                        MessageBox.Show("Вы проиграли");
+
+                        ClearVariable();
+                        PrepareNewGame();
+                        return;
+                    }
                 }
-
-
-                // ---------------- ХОД КОМПЬЮТЕРА -----------------------//
-                await EaseComputer();
-                //Получить координаты
-                // Загрузить картинку
-                Game.AddImage(Game.ComputerRun(ref GameMap), UserImage, PlayerType.Computer,CanvasGame);
-                wt = Game.CheckWin(GameMap, -1);
-                if (wt != WinType.NULL)
-                {
-                    Game.GetImage(CanvasGame, wt);
-                    await EaseComputer();
-                    MessageBox.Show("Вы проиграли");
-
-                    ClearVariable();
-                    PrepareNewGame();
-                    return;
-                }                    
             }
-            
         }
 
         // Имитация принятия решения
@@ -93,6 +99,7 @@ namespace MyCoolGame
             await Task.Run(() =>
             {
                 Thread.Sleep(1200);
+                Wait = false;
             });
         }  
 
@@ -124,7 +131,7 @@ namespace MyCoolGame
         /// </summary>
         private void PrepareNewGame()
         {
-            Game.FillArray(@"Resourse", out UserImage);
+            Game.FillArray(@"Resource", out UserImage);
             Game.FillMap(out GameMap);
             // Очистить полотно
             CanvasGame.Children.Clear();
