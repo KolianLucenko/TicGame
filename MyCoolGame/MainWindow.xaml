@@ -1,19 +1,19 @@
 ﻿<Window x:Class="MyCoolGame.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="409.099" Width="525">
-    <Grid>
-        <Menu Height="25" Margin="0,-353,0,0">
+        Title="MainWindow" MaxHeight="437.099" MaxWidth="328"
+        MinHeight="437.099" MinWidth="328">
+    <StackPanel>
+        <Menu Height="25">
             <MenuItem Header="Приложение">
                 <MenuItem Header="Новая игра" Click="NewGame"></MenuItem>
             </MenuItem>
         </Menu>
-        <Canvas x:Name="CanvasGame" HorizontalAlignment="Left" Height="320" Margin="89,30,0,0" VerticalAlignment="Top" Width="320" MouseLeftButtonDown="Click">
+        <Canvas x:Name="CanvasGame" HorizontalAlignment="Left" Height="320" VerticalAlignment="Top" Width="320" MouseLeftButtonDown="Click">
             <Canvas.Background>
                 <ImageBrush ImageSource="{DynamicResource ImageSource1}"/>
             </Canvas.Background>
-
         </Canvas>
-
-    </Grid>
+        <Button Content="Начать игру" HorizontalAlignment="Left" Margin="124,20,0,0" VerticalAlignment="Top" Width="75"/>
+    </StackPanel>
 </Window>

@@ -37,7 +37,7 @@ namespace MyCoolGame
         public MainWindow()
         {
             InitializeComponent();
-            // Подготовить приложение к игре
+
             PrepareNewGame();          
         }
 
@@ -135,7 +135,6 @@ namespace MyCoolGame
             Game.FillMap(out GameMap);
             // Очистить полотно
             CanvasGame.Children.Clear();
-        }
-        
+        }  
     }
 }
