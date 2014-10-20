@@ -33,12 +33,12 @@ namespace MyCoolGame
         // Ожидать ход компьютера
         bool Wait = false;
 
-
         public MainWindow()
         {
             InitializeComponent();
 
             PrepareNewGame();
+
         }
 
         // Нажатие на полотно
