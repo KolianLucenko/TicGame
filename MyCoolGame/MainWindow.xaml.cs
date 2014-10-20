@@ -39,7 +39,6 @@ namespace MyCoolGame
             InitializeComponent();
 
             PrepareNewGame();
-            
         }
 
         // Нажатие на полотно
@@ -115,7 +114,7 @@ namespace MyCoolGame
                 PrepareNewGame();
             }
 
-        }
+        }        
 
         /// <summary>
         /// Очистить все переменные
@@ -137,6 +136,8 @@ namespace MyCoolGame
             // Очистить полотно
             CanvasGame.Children.Clear();
             CanvasGame.IsEnabled = false;
+
+            
         }
 
         /// <summary>
