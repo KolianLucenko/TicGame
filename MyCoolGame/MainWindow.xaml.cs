@@ -38,7 +38,6 @@ namespace MyCoolGame
             InitializeComponent();
 
             PrepareNewGame();
-
         }
 
         // Нажатие на полотно
