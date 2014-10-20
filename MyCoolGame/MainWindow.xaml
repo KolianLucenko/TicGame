@@ -10,8 +10,9 @@
         </Menu>
         <Canvas x:Name="CanvasGame" HorizontalAlignment="Left" Height="320" Margin="89,30,0,0" VerticalAlignment="Top" Width="320" MouseLeftButtonDown="Click">
             <Canvas.Background>
-                <ImageBrush ImageSource="Resourse/BackgroundCanvas.png"/>
+                <ImageBrush ImageSource="{DynamicResource ImageSource1}"/>
             </Canvas.Background>
+
         </Canvas>
 
     </Grid>
