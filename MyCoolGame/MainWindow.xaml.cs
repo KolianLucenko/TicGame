@@ -36,9 +36,7 @@ namespace MyCoolGame
         {
             InitializeComponent();
             // Подготовить приложение к игре
-            PrepareNewGame();
-            
-            
+            PrepareNewGame();          
         }
 
         // Нажатие на полотно
@@ -80,7 +78,7 @@ namespace MyCoolGame
                     Game.GetImage(CanvasGame, wt);
                     await EaseComputer();
                     MessageBox.Show("Вы проиграли");
-                    // Очистить переменные и подготовить новую игру
+
                     ClearVariable();
                     PrepareNewGame();
                     return;
@@ -98,7 +96,6 @@ namespace MyCoolGame
             });
         }  
 
-        // Новая игра
         private void NewGame(object sender, RoutedEventArgs e)
         {
             MessageBoxResult res = MessageBox.Show("Начать новую игру?", "Yes/No", MessageBoxButton.YesNo,MessageBoxImage.Warning);
@@ -112,23 +109,22 @@ namespace MyCoolGame
 
         }
 
-        // Очистить переменные
+        /// <summary>
+        /// Очистить все переменные
+        /// </summary>
         private void ClearVariable()
         {
-            // Двумерный массив с путями к картинкам
             string[,] UserImage = null;
-            // Двумерный массив карты игры
             int[,] GameMap = null;
-            // Индекстатор для проверок
             int[] InArr = null;
         }
 
-        // Подготовка приложения к  новой игре
+        /// <summary>
+        /// Подготовка приложения к  новой игре
+        /// </summary>
         private void PrepareNewGame()
         {
-            // Заполнить Массив картинок
             Game.FillArray(@"Resourse", out UserImage);
-            // Заполнить "карту" игры
             Game.FillMap(out GameMap);
             // Очистить полотно
             CanvasGame.Children.Clear();
