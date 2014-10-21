@@ -35,9 +35,16 @@ namespace MyCoolGame
 
         public MainWindow()
         {
-            InitializeComponent();
-
-            PrepareNewGame();
+            try
+            {
+                InitializeComponent();
+                PrepareNewGame();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
         }
 
         // Нажатие на полотно
