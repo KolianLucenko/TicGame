@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" MaxHeight="437.099" MaxWidth="328"
         MinHeight="437.099" MinWidth="328">
-    <StackPanel>
+    <StackPanel Margin="0,0,0,1">
         <Menu Height="25">
             <MenuItem Header="Приложение">
                 <MenuItem Header="Новая игра" Click="NewGame"></MenuItem>
@@ -11,7 +11,7 @@
         </Menu>
         <Canvas x:Name="CanvasGame" HorizontalAlignment="Left" Height="320" VerticalAlignment="Top" Width="320" MouseLeftButtonDown="Click" IsEnabled="False">
             <Canvas.Background>
-                <ImageBrush ImageSource="{DynamicResource ImageSource1}"/>
+                <ImageBrush ImageSource="Resource/BackgroundCanvas.png"/>
             </Canvas.Background>
         </Canvas>
         <Button Content="Начать игру" HorizontalAlignment="Left" Margin="124,20,0,0" VerticalAlignment="Top" Width="75" Click="StartGame"/>

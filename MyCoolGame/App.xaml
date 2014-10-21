@@ -4,7 +4,5 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
 
-        <BitmapImage x:Key="ImageSource1" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="C:\Users\Николай\Documents\Visual Studio 2013\Projects\MyCoolGame\MyCoolGame\Resource\BackgroundCanvas.png"/>
-
     </Application.Resources>
 </Application>
