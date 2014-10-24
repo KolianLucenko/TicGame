@@ -30,8 +30,6 @@ namespace MyCoolGame
         int[,] GameMap;
         // Индекстатор для проверок
         int[] InArr;
-        // Ожидать ход компьютера
-        bool Wait = false;
 
         public MainWindow()
         {
@@ -39,6 +37,7 @@ namespace MyCoolGame
             {
                 InitializeComponent();
                 PrepareNewGame();
+                CanvasGame.IsEnabled = false;
             }
             catch (Exception ex)
             {
@@ -50,13 +49,12 @@ namespace MyCoolGame
         // Нажатие на полотно
         private async void Click(object sender, MouseButtonEventArgs e)
         {
-            if (!Wait)
+            if (CanvasGame.IsEnabled)
             {
-                Wait = true;
+                CanvasGame.IsEnabled = false;
                 Point pt = e.GetPosition(this.CanvasGame);
                 // Получить правильные координаты и индексатор для проверки
                 Point newP = Game.GetPoint(pt, out InArr);
-
                 // Если ячека пустая
                 if (GameMap[InArr[0], InArr[1]] == 0)
                 {
@@ -70,14 +68,14 @@ namespace MyCoolGame
                     if (wt != WinType.NULL)
                     {
                         Game.GetImage(CanvasGame, wt);
-                        await EaseComputer();
-                        MessageBox.Show("Вы выиграли");
-                        // Очистить переменные и подготовить новую игру
-                        ClearVariable();
-                        PrepareNewGame();
+                        await GameResult(1);
                         return;
                     }
-
+                    // Проверка на ничь
+                    if (Game.ChekingDeadHeat(GameMap))
+                    {
+                        await GameResult(3);
+                    }
 
                     // ---------------- ХОД КОМПЬЮТЕРА -----------------------//
                     await EaseComputer();
@@ -88,13 +86,16 @@ namespace MyCoolGame
                     if (wt != WinType.NULL)
                     {
                         Game.GetImage(CanvasGame, wt);
-                        await EaseComputer();
-                        MessageBox.Show("Вы проиграли");
-
-                        ClearVariable();
-                        PrepareNewGame();
+                        await GameResult(2);
                         return;
                     }
+                    // Проверка на ничь
+                    if (Game.ChekingDeadHeat(GameMap))
+                    {
+                        await GameResult(3);
+                        return;
+                    }
+                    CanvasGame.IsEnabled = true;
                 }
             }
         }
@@ -105,18 +106,36 @@ namespace MyCoolGame
             await Task.Run(() =>
             {
                 Thread.Sleep(1200);
-                Wait = false;
             });
-        }  
+        }
+
+        /// <summary>
+        /// Вывод результата игры на экран и подготовка к новой игре
+        /// </summary>
+        /// <returns></returns>
+        public async Task GameResult(int i)
+        {
+            await EaseComputer();
+
+            await Task.Run(() =>
+            {
+                if (i == 1)
+                    MessageBox.Show("Вы выиграли");
+                else if(i == 2)
+                    MessageBox.Show("Вы проиграли");
+                else if(i == 3)
+                    MessageBox.Show("Ничья");
+            });
+            ClearVariable();
+            PrepareNewGame();
+        }
 
         private void NewGame(object sender, RoutedEventArgs e)
         {
             MessageBoxResult res = MessageBox.Show("Начать новую игру?", "Yes/No", MessageBoxButton.YesNo,MessageBoxImage.Warning);
             if (res == MessageBoxResult.Yes)
             {
-                // Очистить переменные
                 ClearVariable();
-                // Подготовить к игре
                 PrepareNewGame();
             }
 
@@ -154,8 +173,9 @@ namespace MyCoolGame
         private void StartGame(object sender, RoutedEventArgs e)
         {
             CanvasGame.IsEnabled = true;
-
             Game.AddImage(Game.ComputerRun(ref GameMap), UserImage, PlayerType.Computer, CanvasGame);
-        }  
+        }
+  
+
     }
 }
