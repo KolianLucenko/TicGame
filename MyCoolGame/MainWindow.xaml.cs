@@ -25,13 +25,21 @@ namespace MyCoolGame
     /// </summary>
     public partial class MainWindow : Window
     {
-        // Двумерный массив с путями к картинкам
+        /// <summary>
+        /// Двумерный массив с путями к картинкам
+        /// </summary>
         string[,] UserImage;
-        // Двумерный массив карты игры
+        /// <summary>
+        /// Двумерный массив карты игры
+        /// </summary>
         int[,] GameMap;
-        // Индекстатор для проверок
+        /// <summary>
+        /// Индекстатор для проверок
+        /// </summary>
         int[] InArr;
-        // уровень противника
+        /// <summary>
+        /// уровень противника
+        /// </summary>
         string level = "Ease";
 
 
@@ -89,7 +97,10 @@ namespace MyCoolGame
                     await ImitationDecision();
                     //Получить координаты
                     // Загрузить картинку
-                    Game.AddImage(Game.ComputerRun(ref GameMap), UserImage, PlayerType.Computer, CanvasGame);
+                    if(level == "Ease")
+                        Game.AddImage(Game.EaseComputerRun(ref GameMap), UserImage, PlayerType.Computer, CanvasGame);
+                    if(level == "Normal")
+                        Game.AddImage(Game.NormalComputerRun(ref GameMap), UserImage, PlayerType.Computer, CanvasGame);
                     wt = Game.CheckWin(GameMap, -1);
                     if (wt != WinType.NULL)
                     {
@@ -191,7 +202,7 @@ namespace MyCoolGame
         private void StartGame(object sender, RoutedEventArgs e)
         {
             CanvasGame.IsEnabled = true;
-            Game.AddImage(Game.ComputerRun(ref GameMap), UserImage, PlayerType.Computer, CanvasGame);
+            Game.AddImage(Game.EaseComputerRun(ref GameMap), UserImage, PlayerType.Computer, CanvasGame);
         }
 
 
