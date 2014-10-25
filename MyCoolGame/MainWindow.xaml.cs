@@ -32,7 +32,7 @@ namespace MyCoolGame
         // Индекстатор для проверок
         int[] InArr;
         // уровень противника
-        string level;
+        string level = "Ease";
 
 
         /// <summary>
@@ -45,18 +45,6 @@ namespace MyCoolGame
                 InitializeComponent();
                 PrepareNewGame();
                 CanvasGame.IsEnabled = false;
-
-                switch (level = ConfigurationManager.AppSettings["ComputerLevel"].ToString())
-                {
-                    case "Ease":
-                        Ease.IsChecked = true;break;
-                    case "Normal":
-                        Normal.IsChecked = true;break;
-                    case "Hard":
-                        Hard.IsChecked = true;break;
-                    default:
-                        Ease.IsChecked = true; level = "Ease";break;
-                }
             }
             catch (Exception ex)
             {
@@ -220,8 +208,7 @@ namespace MyCoolGame
 
             MenuItem m = sender as MenuItem;
             m.IsChecked = true;
-            String Comp = m.Tag.ToString();
-            ConfigurationManager.AppSettings["ComputerLevel"] = Comp;
+            level = m.Tag.ToString();
         }
 
         /// <summary>
@@ -240,7 +227,5 @@ namespace MyCoolGame
                         Hard.IsEnabled = false;
                     }
         }
-
-
     }
 }
