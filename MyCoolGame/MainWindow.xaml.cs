@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using System.IO;
 using CoolGameLibrary;
 using System.Reflection;
+using System.Configuration;
 
 namespace MyCoolGame
 {
@@ -30,7 +31,13 @@ namespace MyCoolGame
         int[,] GameMap;
         // Индекстатор для проверок
         int[] InArr;
+        // уровень противника
+        string level;
 
+
+        /// <summary>
+        /// Выполнение при запуске программы
+        /// </summary>
         public MainWindow()
         {
             try
@@ -38,6 +45,18 @@ namespace MyCoolGame
                 InitializeComponent();
                 PrepareNewGame();
                 CanvasGame.IsEnabled = false;
+
+                switch (level = ConfigurationManager.AppSettings["ComputerLevel"].ToString())
+                {
+                    case "Ease":
+                        Ease.IsChecked = true;break;
+                    case "Normal":
+                        Normal.IsChecked = true;break;
+                    case "Hard":
+                        Hard.IsChecked = true;break;
+                    default:
+                        Ease.IsChecked = true; level = "Ease";break;
+                }
             }
             catch (Exception ex)
             {
@@ -75,10 +94,11 @@ namespace MyCoolGame
                     if (Game.ChekingDeadHeat(GameMap))
                     {
                         await GameResult(3);
+                        return;
                     }
 
                     // ---------------- ХОД КОМПЬЮТЕРА -----------------------//
-                    await EaseComputer();
+                    await ImitationDecision();
                     //Получить координаты
                     // Загрузить картинку
                     Game.AddImage(Game.ComputerRun(ref GameMap), UserImage, PlayerType.Computer, CanvasGame);
@@ -100,12 +120,15 @@ namespace MyCoolGame
             }
         }
 
-        // Имитация принятия решения
-        public async Task EaseComputer()
+        /// <summary>
+        /// Имитация принятия решения (задержка на заданное время)
+        /// </summary>
+        /// <returns>Ничего не возвращает</returns>
+        public async Task ImitationDecision(int Time = 1200)
         {
             await Task.Run(() =>
             {
-                Thread.Sleep(1200);
+                Thread.Sleep(Time);
             });
         }
 
@@ -115,7 +138,7 @@ namespace MyCoolGame
         /// <returns></returns>
         public async Task GameResult(int i)
         {
-            await EaseComputer();
+            await ImitationDecision();
 
             await Task.Run(() =>
             {
@@ -130,6 +153,11 @@ namespace MyCoolGame
             PrepareNewGame();
         }
 
+        /// <summary>
+        /// Начать новую игру
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void NewGame(object sender, RoutedEventArgs e)
         {
             MessageBoxResult res = MessageBox.Show("Начать новую игру?", "Yes/No", MessageBoxButton.YesNo,MessageBoxImage.Warning);
@@ -162,7 +190,9 @@ namespace MyCoolGame
             CanvasGame.Children.Clear();
             CanvasGame.IsEnabled = false;
 
-            
+            Ease.IsEnabled = true;
+            Normal.IsEnabled = true;
+            Hard.IsEnabled = false;
         }
 
         /// <summary>
@@ -175,7 +205,42 @@ namespace MyCoolGame
             CanvasGame.IsEnabled = true;
             Game.AddImage(Game.ComputerRun(ref GameMap), UserImage, PlayerType.Computer, CanvasGame);
         }
-  
+
+
+        /// <summary>
+        /// Установить сложность игры
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SetComplexity(object sender, RoutedEventArgs e)
+        {
+            Ease.IsChecked = false;
+            Normal.IsChecked = false;
+            Hard.IsChecked = false;
+
+            MenuItem m = sender as MenuItem;
+            m.IsChecked = true;
+            String Comp = m.Tag.ToString();
+            ConfigurationManager.AppSettings["ComputerLevel"] = Comp;
+        }
+
+        /// <summary>
+        /// Проверка - началась ли игра
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MenuItem_MouseEnter(object sender, MouseEventArgs e)
+        {
+            for(int i=0;i<GameMap.GetLength(0);i++)
+                for(int c=0;c<GameMap.GetLength(1);c++)
+                    if(GameMap[i,c]!=0)
+                    {
+                        Ease.IsEnabled = false;
+                        Normal.IsEnabled = false;
+                        Hard.IsEnabled = false;
+                    }
+        }
+
 
     }
 }

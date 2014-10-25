@@ -7,6 +7,11 @@
         <Menu Height="25">
             <MenuItem Header="Приложение">
                 <MenuItem Header="Новая игра" Click="NewGame"></MenuItem>
+                <MenuItem Header="Сложность игры" MouseEnter="MenuItem_MouseEnter">
+                    <MenuItem x:Name="Ease" Header="Легко" Click="SetComplexity" Tag="Ease"></MenuItem>
+                    <MenuItem x:Name="Normal" Header="Нормально" Click="SetComplexity" Tag="Normal"></MenuItem>
+                    <MenuItem x:Name="Hard" Header="Сложно" Click="SetComplexity" Tag="Hard" IsEnabled="False"></MenuItem>
+                </MenuItem>
             </MenuItem>
         </Menu>
         <Canvas x:Name="CanvasGame" HorizontalAlignment="Left" Height="320" VerticalAlignment="Top" Width="320" MouseLeftButtonDown="Click" IsEnabled="False">
@@ -14,7 +19,7 @@
                 <ImageBrush ImageSource="Resource/BackgroundCanvas.png"/>
             </Canvas.Background>
         </Canvas>
-        <Button Content="Начать игру" Background="#FFDA13DA" HorizontalAlignment="Left" Margin="124,20,0,0" VerticalAlignment="Top" Width="75" Click="StartGame" Opacity="0.8">
+        <Button Content="Начать игру" Background="#FFDA13DA" HorizontalAlignment="Left" Margin="118,20,0,0" VerticalAlignment="Top" Width="90" Click="StartGame" Opacity="0.8" BorderBrush="#FFDA13DA">
             
             <Button.Effect>
                 <DropShadowEffect/>
