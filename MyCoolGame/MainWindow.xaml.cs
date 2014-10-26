@@ -66,13 +66,14 @@ namespace MyCoolGame
         {
             if (CanvasGame.IsEnabled)
             {
-                CanvasGame.IsEnabled = false;
+                
                 Point pt = e.GetPosition(this.CanvasGame);
                 // Получить правильные координаты и индексатор для проверки
                 Point newP = Game.GetPoint(pt, out InArr);
                 // Если ячека пустая
                 if (GameMap[InArr[0], InArr[1]] == 0)
                 {
+                    CanvasGame.IsEnabled = false;
 
                     // Отметить ячейку
                     GameMap[InArr[0], InArr[1]] = 1;
@@ -192,6 +193,8 @@ namespace MyCoolGame
             Ease.IsEnabled = true;
             Normal.IsEnabled = true;
             Hard.IsEnabled = false;
+
+            StartGameButton.IsEnabled = true;
         }
 
         /// <summary>
@@ -203,6 +206,8 @@ namespace MyCoolGame
         {
             CanvasGame.IsEnabled = true;
             Game.AddImage(Game.EaseComputerRun(ref GameMap), UserImage, PlayerType.Computer, CanvasGame);
+
+            StartGameButton.IsEnabled = false;
         }
 
 

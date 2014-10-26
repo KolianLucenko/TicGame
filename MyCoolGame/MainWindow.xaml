@@ -19,7 +19,7 @@
                 <ImageBrush ImageSource="Resource/BackgroundCanvas.png"/>
             </Canvas.Background>
         </Canvas>
-        <Button Content="Начать игру" Background="#FF136DDA" HorizontalAlignment="Left" Margin="118,20,0,0" VerticalAlignment="Top" Width="90" Click="StartGame" Opacity="0.8" BorderBrush="#FFDA13DA">
+        <Button x:Name="StartGameButton" Content="Начать игру" Background="#FF136DDA" HorizontalAlignment="Left" Margin="118,20,0,0" VerticalAlignment="Top" Width="90" Click="StartGame" Opacity="0.8" BorderBrush="#FFDA13DA">
             <Button.BitmapEffect>
                 <DropShadowBitmapEffect></DropShadowBitmapEffect>
             </Button.BitmapEffect>
