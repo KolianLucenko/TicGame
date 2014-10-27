@@ -190,8 +190,16 @@ namespace MyCoolGame
                     }
                 }
             });
-            ClearVariable();
-            PrepareNewGame();
+            try
+            {
+                ClearVariable();
+                PrepareNewGame();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+            
         }
 
         /// <summary>
@@ -218,6 +226,8 @@ namespace MyCoolGame
             string[,] UserImage = null;
             int[,] GameMap = null;
             int[] InArr = null;
+
+            Game.SaveStatistic(stat);
         }
 
         /// <summary>
@@ -305,19 +315,6 @@ namespace MyCoolGame
         private void Statistics(object sender, RoutedEventArgs e)
         {
             MessageBox.Show(stat.ToString(),"Статистика");
-        }
-
-        /// <summary>
-        /// Действия при выключение приложения
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        
-        
-        
-        private void WinClose(object sender, EventArgs e)
-        {
-            Game.SaveStatistic(stat);
         }
     }
 }
