@@ -2,7 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" MaxHeight="437.099" MaxWidth="328"
-        MinHeight="437.099" MinWidth="328" WindowStyle="ToolWindow">
+        MinHeight="437.099" MinWidth="328" WindowStyle="ToolWindow" Closed="WinClose">
     <StackPanel Margin="0,0,0,1">
         <Menu Height="25">
             <MenuItem Header="Приложение">
@@ -13,8 +13,10 @@
                     <MenuItem x:Name="Hard" Header="Сложно" Click="SetComplexity" Tag="Hard" IsEnabled="False"></MenuItem>
                 </MenuItem>
             </MenuItem>
+            <MenuItem Header="Статистика" Click="Statistics"></MenuItem>
         </Menu>
-        <Canvas x:Name="CanvasGame" HorizontalAlignment="Left" Height="320" VerticalAlignment="Top" Width="320" MouseLeftButtonDown="Click" IsEnabled="False">
+        <Canvas x:Name="CanvasGame" HorizontalAlignment="Left" Height="320" VerticalAlignment="Top" Width="320"
+                 MouseLeftButtonDown="Click" IsEnabled="False">
             <Canvas.Background>
                 <ImageBrush ImageSource="Resource/BackgroundCanvas.png"/>
             </Canvas.Background>

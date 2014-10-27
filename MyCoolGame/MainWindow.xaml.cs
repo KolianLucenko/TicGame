@@ -41,6 +41,10 @@ namespace MyCoolGame
         /// уровень противника
         /// </summary>
         string level = "Ease";
+        /// <summary>
+        /// Статистика игрока
+        /// </summary>
+        public Statistic stat;
 
 
         /// <summary>
@@ -53,6 +57,7 @@ namespace MyCoolGame
                 InitializeComponent();
                 PrepareNewGame();
                 CanvasGame.IsEnabled = false;
+                stat = Game.LoadStatistic();
             }
             catch (Exception ex)
             {
@@ -61,7 +66,11 @@ namespace MyCoolGame
             
         }
 
-        // Нажатие на полотно
+        /// <summary>
+        /// Нажатие на полотно
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void Click(object sender, MouseButtonEventArgs e)
         {
             if (CanvasGame.IsEnabled)
@@ -143,11 +152,43 @@ namespace MyCoolGame
             await Task.Run(() =>
             {
                 if (i == 1)
+                {
                     MessageBox.Show("Вы выиграли");
+                    switch(level){
+                        case "Ease":
+                            stat.WinEase += 1;break;
+                        case "Normal":
+                            stat.WinNormal += 1;break;
+                        case "Hard":
+                            stat.WinHard += 1;break;
+                    }
+                }
                 else if(i == 2)
+                {
                     MessageBox.Show("Вы проиграли");
-                else if(i == 3)
+                    switch (level)
+                    {
+                        case "Ease":
+                            stat.OverEase += 1; break;
+                        case "Normal":
+                            stat.OverNormal += 1; break;
+                        case "Hard":
+                            stat.OverHard += 1; break;
+                    }
+                }
+                else if (i == 3)
+                {
                     MessageBox.Show("Ничья");
+                    switch (level)
+                    {
+                        case "Ease":
+                            stat.DrawEase += 1; break;
+                        case "Normal":
+                            stat.DrawNormal += 1; break;
+                        case "Hard":
+                            stat.DrawHard += 1; break;
+                    }
+                }
             });
             ClearVariable();
             PrepareNewGame();
@@ -204,6 +245,18 @@ namespace MyCoolGame
         /// <param name="e"></param>
         private void StartGame(object sender, RoutedEventArgs e)
         {
+            AskLevel Ask = new AskLevel();
+            Ask.ShowDialog();
+            if (Ask.DialogResult == true)
+            {
+                level = Ask.GetLevel();
+            }
+            else
+            {
+                MessageBox.Show("Вы не выбрали сложность игры.\nПовторите ещё раз.", "Ошибка");
+                return;
+            }
+
             CanvasGame.IsEnabled = true;
             Game.AddImage(Game.EaseComputerRun(ref GameMap), UserImage, PlayerType.Computer, CanvasGame);
 
@@ -242,6 +295,29 @@ namespace MyCoolGame
                         Normal.IsEnabled = false;
                         Hard.IsEnabled = false;
                     }
+        }
+
+        /// <summary>
+        /// Вывести статистику
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Statistics(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show(stat.ToString(),"Статистика");
+        }
+
+        /// <summary>
+        /// Действия при выключение приложения
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        
+        
+        
+        private void WinClose(object sender, EventArgs e)
+        {
+            Game.SaveStatistic(stat);
         }
     }
 }

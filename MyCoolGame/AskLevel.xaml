@@ -1,0 +1,25 @@
+﻿<Window x:Class="MyCoolGame.AskLevel"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Выберите сложность" Height="103.191" Width="309" WindowStyle="ToolWindow">
+    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="0,0,1,9">
+        <Label Width="130">Выберите сложность</Label>
+        <StackPanel Orientation="Horizontal">
+            <Button Width="100" Height="30" Content="Легко" Background="#FF136DDA" Opacity="0.8" BorderBrush="#FFDA13DA" Click="Button_Click" Tag="Ease">
+                <Button.BitmapEffect>
+                    <DropShadowBitmapEffect></DropShadowBitmapEffect>
+                </Button.BitmapEffect>
+            </Button>
+            <Button Width="100" Height="30" Content="Средне" Background="#FF136DDA" Opacity="0.8" BorderBrush="#FFDA13DA" Click="Button_Click" Tag="Normal">
+                <Button.BitmapEffect>
+                    <DropShadowBitmapEffect></DropShadowBitmapEffect>
+                </Button.BitmapEffect>
+            </Button>
+            <Button Width="100" Height="30" Content="Сложно" Background="#FF136DDA" Opacity="0.8" BorderBrush="#FFDA13DA" IsEnabled="False">
+                <Button.BitmapEffect>
+                    <DropShadowBitmapEffect></DropShadowBitmapEffect>
+                </Button.BitmapEffect>
+            </Button>
+        </StackPanel>
+    </StackPanel>
+</Window>
