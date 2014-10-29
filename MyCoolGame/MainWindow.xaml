@@ -10,7 +10,7 @@
                 <MenuItem Header="Сложность игры" MouseEnter="MenuItem_MouseEnter">
                     <MenuItem x:Name="Ease" Header="Легко" Click="SetComplexity" Tag="Ease"></MenuItem>
                     <MenuItem x:Name="Normal" Header="Средне" Click="SetComplexity" Tag="Normal"></MenuItem>
-                    <MenuItem x:Name="Hard" Header="Сложно" Click="SetComplexity" Tag="Hard" IsEnabled="False"></MenuItem>
+                    <MenuItem x:Name="Hard" Header="Сложно" Click="SetComplexity" Tag="Hard"></MenuItem>
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="Статистика" Click="Statistics"></MenuItem>

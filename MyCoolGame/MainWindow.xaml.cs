@@ -111,6 +111,8 @@ namespace MyCoolGame
                         Game.AddImage(Game.EaseComputerRun(ref GameMap), UserImage, PlayerType.Computer, CanvasGame);
                     if(level == "Normal")
                         Game.AddImage(Game.NormalComputerRun(ref GameMap), UserImage, PlayerType.Computer, CanvasGame);
+                    if (level == "Hard")
+                        Game.AddImage(Game.HardComputerRun(ref GameMap), UserImage, PlayerType.Computer, CanvasGame);
                     wt = Game.CheckWin(GameMap, -1);
                     if (wt != WinType.NULL)
                     {

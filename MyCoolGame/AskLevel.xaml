@@ -15,7 +15,7 @@
                     <DropShadowBitmapEffect></DropShadowBitmapEffect>
                 </Button.BitmapEffect>
             </Button>
-            <Button Width="100" Height="30" Content="Сложно" Background="#FF136DDA" Opacity="0.8" BorderBrush="#FFDA13DA" IsEnabled="False">
+            <Button Width="100" Height="30" Content="Сложно" Background="#FF136DDA" Opacity="0.8" BorderBrush="#FFDA13DA" Tag="Hard">
                 <Button.BitmapEffect>
                     <DropShadowBitmapEffect></DropShadowBitmapEffect>
                 </Button.BitmapEffect>
